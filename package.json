@@ -4,6 +4,7 @@
   "description": "Serverless Framework plugin for automatically populating stack policy statements by resource type.",
   "main": "index.js",
   "scripts": {
+    "deploy": "publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/neverendingqs/serverless-stack-policy-by-resource-type/issues"
   },
-  "homepage": "https://github.com/neverendingqs/serverless-stack-policy-by-resource-type#readme"
+  "homepage": "https://github.com/neverendingqs/serverless-stack-policy-by-resource-type#readme",
+  "devDependencies": {
+    "publish-me-maybe": "^1.0.7"
+  }
 }
