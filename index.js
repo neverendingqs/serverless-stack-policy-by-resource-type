@@ -16,10 +16,22 @@ class StackPolicyByResourceType {
       return;
     }
 
-    const policiesToLookup = stackPolicy.filter(({ ResourceType }) => ResourceType);
-    if(policiesToLookup.length === 0) {
+    const statementsToLookup = stackPolicy.filter(({ ResourceType }) => ResourceType);
+    if(statementsToLookup.length === 0) {
       this.serverless.cli.log(`'serverless-stack-policy-by-resource-type' did not find any stack policy statements with property 'ResourceType'.`);
       return;
+    }
+
+    for(const statement of statementsToLookup) {
+      const resourceTypes = new Set(statement.ResourceType);
+      const resources = Object.entries(this.serverless.service.resources.Resources)
+        .filter(([, { Type }]) => resourceTypes.has(Type))
+        .map(([logicalResourceId]) => `LogicalResourceId/${logicalResourceId}`);
+
+      statement.Resource = (statement.Resource || [])
+        .concat(resources)
+        .sort();
+      delete statement.ResourceType;
     }
   }
 }
