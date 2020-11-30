@@ -1,0 +1,20 @@
+name: Bump Node version (npm)
+on:
+  workflow_dispatch:
+    inputs:
+      version-type:
+        default: patch
+        description: Bumps the package version based on value (e.g. patch)
+        required: true
+jobs:
+  bump-version:
+    name: Bump Node version
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: neverendingqs/gh-action-node-bump-version-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          version-type: ${{ github.event.inputs.version-type }}
