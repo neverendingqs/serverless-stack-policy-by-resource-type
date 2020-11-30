@@ -41,11 +41,13 @@ jobs:
 
 workflows:
   version: 2
-  build-test-deploy:
+  ci:
     jobs:
       - build
       - deploy:
           context: npm-publish
+          requires:
+            - build
           filters:
             branches:
               only:
