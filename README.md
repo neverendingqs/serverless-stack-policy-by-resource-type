@@ -38,4 +38,8 @@ provider:
       # and converted to additional entries in `Resource`.
       ResourceType:
         - AWS::S3::Bucket
+      # These resources are excluded from after all resources by type are added to `Resource`.
+      # This property allows you to purposely remove a resource.
+      NotResource:
+        - LogicalResourceId/LoggingBucket
 ```

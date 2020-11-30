@@ -24,15 +24,18 @@ class StackPolicyByResourceType {
 
     for(const statement of statementsToLookup) {
       const resourceTypes = new Set(statement.ResourceType);
+      const notResources = new Set(statement.NotResource);
       const resources = Object.entries(this.serverless.service.resources.Resources)
         .filter(([, { Type }]) => resourceTypes.has(Type))
-        .map(([logicalResourceId]) => `LogicalResourceId/${logicalResourceId}`);
+        .map(([logicalResourceId]) => `LogicalResourceId/${logicalResourceId}`)
+        .filter(resource => !notResources.has(resource));
 
       const newResources = [...new Set(
         (statement.Resource || []).concat(resources)
       )];
 
       statement.Resource = newResources.sort();
+      delete statement.NotResource;
       delete statement.ResourceType;
     }
   }
