@@ -28,9 +28,11 @@ class StackPolicyByResourceType {
         .filter(([, { Type }]) => resourceTypes.has(Type))
         .map(([logicalResourceId]) => `LogicalResourceId/${logicalResourceId}`);
 
-      statement.Resource = (statement.Resource || [])
-        .concat(resources)
-        .sort();
+      const newResources = [...new Set(
+        (statement.Resource || []).concat(resources)
+      )];
+
+      statement.Resource = newResources.sort();
       delete statement.ResourceType;
     }
   }
