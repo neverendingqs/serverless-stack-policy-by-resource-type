@@ -34,6 +34,8 @@ provider:
         - Update:Delete
       Resource:
         - LogicalResourceId/DDBTable
+      # These resource types are parsed by this plugin
+      # and converted to additional entries in `Resource`.
       ResourceType:
         - AWS::S3::Bucket
 ```
