@@ -1,6 +1,6 @@
 {
   "name": "serverless-stack-policy-by-resource-type",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Serverless Framework plugin for automatically populating stack policy statements by resource type.",
   "main": "index.js",
   "scripts": {
