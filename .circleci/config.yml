@@ -30,6 +30,12 @@ jobs:
           paths:
             - node_modules
 
+  test:
+    executor: node
+    steps:
+      - *attach_workspace
+      - run: npm run test
+
   deploy:
     executor: node
     steps:
@@ -44,10 +50,13 @@ workflows:
   ci:
     jobs:
       - build
+      - test:
+          requires:
+            - build
       - deploy:
           context: npm-publish
           requires:
-            - build
+            - test
           filters:
             branches:
               only:

@@ -6,7 +6,7 @@
   "scripts": {
     "deploy": "publish",
     "lint": "eslint --ignore-pattern .gitignore **/*.js",
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "mocha test/**/*.js",
     "posttest": "npm run lint"
   },
   "repository": {
@@ -26,8 +26,11 @@
   },
   "homepage": "https://github.com/neverendingqs/serverless-stack-policy-by-resource-type#readme",
   "devDependencies": {
+    "chai": "^4.2.0",
     "eslint": "^7.14.0",
     "eslint-plugin-mocha": "^8.0.0",
-    "publish-me-maybe": "^1.0.7"
+    "mocha": "^8.2.1",
+    "publish-me-maybe": "^1.0.7",
+    "sinon": "^9.2.1"
   }
 }
