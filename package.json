@@ -6,7 +6,8 @@
   "scripts": {
     "deploy": "publish",
     "lint": "eslint --ignore-pattern .gitignore **/*.js",
-    "test": "mocha test/**/*.js",
+    "test": "nyc --reporter=html --reporter=text mocha test/**/*.js",
+    "test:coverage": "nyc report --reporter=text-lcov | coveralls",
     "posttest": "npm run lint"
   },
   "repository": {
@@ -27,9 +28,11 @@
   "homepage": "https://github.com/neverendingqs/serverless-stack-policy-by-resource-type#readme",
   "devDependencies": {
     "chai": "^4.2.0",
+    "coveralls": "^3.1.0",
     "eslint": "^7.14.0",
     "eslint-plugin-mocha": "^8.0.0",
     "mocha": "^8.2.1",
+    "nyc": "^15.1.0",
     "publish-me-maybe": "^1.0.7",
     "sinon": "^9.2.1"
   }
