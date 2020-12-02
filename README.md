@@ -62,6 +62,6 @@ provider:
 
       # These resources are excluded from `Resource`. after all resources by type are added.
       # This property allows you to intentionally remove a resource.
-      NotResource:
+      ExcludeResource:
         - LogicalResourceId/LoggingBucket
 ```
