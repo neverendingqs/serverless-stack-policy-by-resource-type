@@ -1,7 +1,7 @@
 {
   "name": "serverless-stack-policy-by-resource-type",
-  "version": "0.0.3",
-  "description": "Serverless Framework plugin for automatically populating stack policy statements by resource type.",
+  "version": "0.0.4",
+  "description": "Serverless Framework plugin for automatically populating CloudFormation stack policy statements by resource type.",
   "main": "index.js",
   "scripts": {
     "deploy": "publish",

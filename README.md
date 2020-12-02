@@ -1,7 +1,7 @@
 # serverless-stack-policy-by-resource-type
 
-Serverless Framework plugin for automatically populating stack policy statements
-by resource type.
+Serverless Framework plugin for automatically populating CloudFormation stack
+policy statements by resource type.
 
 CloudFormation stack policies allow you to protect a resource from being
 accidentally replaced or deleted. However, it is easy to forget to update the
