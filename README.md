@@ -1,3 +1,9 @@
+[![CircleCI](https://circleci.com/gh/neverendingqs/serverless-stack-policy-by-resource-type.svg?style=svg)](https://circleci.com/gh/neverendingqs/serverless-stack-policy-by-resource-type.svg)
+[![Coverage
+Status](https://coveralls.io/repos/github/neverendingqs/serverless-stack-policy-by-resource-type/badge.svg?branch=main)](https://coveralls.io/github/neverendingqs/serverless-stack-policy-by-resource-type?branch=main)
+[![npm
+version](https://badge.fury.io/js/serverless-stack-policy-by-resource-type.svg)](https://badge.fury.io/js/serverless-stack-policy-by-resource-type)
+
 # serverless-stack-policy-by-resource-type
 
 Serverless Framework plugin for automatically populating CloudFormation stack
