@@ -12,13 +12,13 @@ class StackPolicyByResourceType {
   lookupLogicalResourceIds() {
     const stackPolicy = this.serverless.service.provider.stackPolicy;
     if(!stackPolicy) {
-      this.serverless.cli.log(`'serverless-stack-policy-by-resource-type' did not find a stack policy.`);
+      this.serverless.cli.log("'serverless-stack-policy-by-resource-type' did not find a stack policy.");
       return;
     }
 
     const statementsToLookup = stackPolicy.filter(({ ResourceType }) => ResourceType);
     if(statementsToLookup.length === 0) {
-      this.serverless.cli.log(`'serverless-stack-policy-by-resource-type' did not find any stack policy statements with property 'ResourceType'.`);
+      this.serverless.cli.log("'serverless-stack-policy-by-resource-type' did not find any stack policy statements with property 'ResourceType'.");
       return;
     }
 

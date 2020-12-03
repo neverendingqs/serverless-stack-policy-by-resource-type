@@ -72,7 +72,7 @@ describe('index', function() {
   });
 
   describe('lookupLogicalResourceIds()', function() {
-    const noApplicableStatementsMsg = `'serverless-stack-policy-by-resource-type' did not find any stack policy statements with property 'ResourceType'.`;
+    const noApplicableStatementsMsg = "'serverless-stack-policy-by-resource-type' did not find any stack policy statements with property 'ResourceType'.";
 
     beforeEach(function() {
       Object.assign(
@@ -86,7 +86,7 @@ describe('index', function() {
     it('does nothing if it does not find a stack policy', function() {
       delete this.serverless.service.provider.stackPolicy;
       this.plugin.lookupLogicalResourceIds();
-      this.serverless.cli.log.should.have.been.calledWith(`'serverless-stack-policy-by-resource-type' did not find a stack policy.`);
+      this.serverless.cli.log.should.have.been.calledWith("'serverless-stack-policy-by-resource-type' did not find a stack policy.");
     });
 
     it('does nothing if there are no stack policy statements', function() {
@@ -94,7 +94,7 @@ describe('index', function() {
       this.serverless.cli.log.should.have.been.calledWith(noApplicableStatementsMsg);
     });
 
-    it(`does nothing if there are no stack policy statements with property 'ResourceType'`, function() {
+    it("does nothing if there are no stack policy statements with property 'ResourceType'", function() {
       this.serverless.service.provider.stackPolicy.push(
         {
           Effect: 'Allow',
@@ -155,7 +155,7 @@ describe('index', function() {
       should.not.exist(statement.ExcludeResource);
     });
 
-    it('filters out resources based on ExcludeResource in the stack policy statement', function() {
+    it("filters out resources based on 'ExcludeResource' in the stack policy statement", function() {
       const statement = {
         Effect: 'Deny',
         Principal: '*',
@@ -193,7 +193,7 @@ describe('index', function() {
       should.not.exist(statement.ExcludeResource);
     });
 
-    it('works even if Resource property does not exist in the stack policy statement', function() {
+    it("works even if 'Resource' property does not exist in the stack policy statement", function() {
       const statement = {
         Effect: 'Deny',
         Principal: '*',
