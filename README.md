@@ -66,7 +66,7 @@ provider:
       ResourceType:
         - AWS::S3::Bucket
 
-      # These resources are excluded from `Resource`. after all resources by type are added.
+      # These resources are excluded from `Resource` after all resources by type are added.
       # This property allows you to intentionally remove a resource.
       ExcludeResource:
         - LogicalResourceId/LoggingBucket
