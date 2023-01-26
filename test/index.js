@@ -153,6 +153,7 @@ describe('index', function() {
       ]);
       should.not.exist(statement.ResourceType);
       should.not.exist(statement.ExcludeResource);
+      should.not.exist(statement.ExcludeResourcePrefix);
     });
 
     it("filters out resources based on 'ExcludeResource' in the stack policy statement", function() {
@@ -191,6 +192,7 @@ describe('index', function() {
       ]);
       should.not.exist(statement.ResourceType);
       should.not.exist(statement.ExcludeResource);
+      should.not.exist(statement.ExcludeResourcePrefix);
     });
 
     it("filters out resources based on 'ExcludeResourcePrefix' in the stack policy statement", function() {
@@ -229,6 +231,7 @@ describe('index', function() {
       ]);
       should.not.exist(statement.ResourceType);
       should.not.exist(statement.ExcludeResource);
+      should.not.exist(statement.ExcludeResourcePrefix);
     });
 
     it("filters out resources based on 'ExcludeResource' and  'ExcludeResourcePrefix' in the stack policy statement", function() {
@@ -269,6 +272,7 @@ describe('index', function() {
       ]);
       should.not.exist(statement.ResourceType);
       should.not.exist(statement.ExcludeResource);
+      should.not.exist(statement.ExcludeResourcePrefix);
     });
 
     it("works even if 'Resource' property does not exist in the stack policy statement", function() {
