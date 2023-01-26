@@ -70,4 +70,9 @@ provider:
       # This property allows you to intentionally remove a resource.
       ExcludeResource:
         - LogicalResourceId/LoggingBucket
+
+      # Any resources matching this prefix are excluded from `Resource` after all resources by type are added.
+      # This property allows you to intentionally remove a collection of resources which share the same prefix.
+      ExcludeResourcePrefix:
+        - LogicalResourceId/Logging
 ```
