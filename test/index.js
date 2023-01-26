@@ -79,7 +79,7 @@ describe('index', function() {
         this.serverless.service.resources.Resources,
         { DDBTable: createDdbResource() },
         { S3Bucket1: createS3Resource() },
-        { S3Bucket2: createS3Resource() }
+        { AnotherS3Bucket: createS3Resource() }
       );
     });
 
@@ -149,10 +149,11 @@ describe('index', function() {
       statement.Resource.should.have.members([
         'LogicalResourceId/DDBTable',
         'LogicalResourceId/S3Bucket1',
-        'LogicalResourceId/S3Bucket2'
+        'LogicalResourceId/AnotherS3Bucket'
       ]);
       should.not.exist(statement.ResourceType);
       should.not.exist(statement.ExcludeResource);
+      should.not.exist(statement.ExcludeResourcePrefix);
     });
 
     it("filters out resources based on 'ExcludeResource' in the stack policy statement", function() {
@@ -187,10 +188,91 @@ describe('index', function() {
       this.plugin.lookupLogicalResourceIds();
       statement.Resource.should.have.members([
         'LogicalResourceId/DDBTable',
-        'LogicalResourceId/S3Bucket2'
+        'LogicalResourceId/AnotherS3Bucket'
       ]);
       should.not.exist(statement.ResourceType);
       should.not.exist(statement.ExcludeResource);
+      should.not.exist(statement.ExcludeResourcePrefix);
+    });
+
+    it("filters out resources based on 'ExcludeResourcePrefix' in the stack policy statement", function() {
+      const statement = {
+        Effect: 'Deny',
+        Principal: '*',
+        Action: [
+          'Update:Replace',
+          'Update:Delete'
+        ],
+        Resource: [
+          'LogicalResourceId/DDBTable'
+        ],
+        ResourceType: [
+          'AWS::S3::Bucket'
+        ],
+        ExcludeResourcePrefix: [
+          'LogicalResourceId/S3Buck'
+        ]
+      };
+
+      this.serverless.service.provider.stackPolicy.push(
+        {
+          Effect: 'Allow',
+          Principal: '*',
+          Action: 'Update:*',
+          Resource: '*'
+        },
+        statement
+      );
+
+      this.plugin.lookupLogicalResourceIds();
+      statement.Resource.should.have.members([
+        'LogicalResourceId/DDBTable',
+        'LogicalResourceId/AnotherS3Bucket'
+      ]);
+      should.not.exist(statement.ResourceType);
+      should.not.exist(statement.ExcludeResource);
+      should.not.exist(statement.ExcludeResourcePrefix);
+    });
+
+    it("filters out resources based on 'ExcludeResource' and  'ExcludeResourcePrefix' in the stack policy statement", function() {
+      const statement = {
+        Effect: 'Deny',
+        Principal: '*',
+        Action: [
+          'Update:Replace',
+          'Update:Delete'
+        ],
+        Resource: [
+          'LogicalResourceId/DDBTable'
+        ],
+        ResourceType: [
+          'AWS::S3::Bucket'
+        ],
+        ExcludeResource: [
+          'LogicalResourceId/S3Bucket1'
+        ],
+        ExcludeResourcePrefix: [
+          'LogicalResourceId/Another'
+        ]
+      };
+
+      this.serverless.service.provider.stackPolicy.push(
+        {
+          Effect: 'Allow',
+          Principal: '*',
+          Action: 'Update:*',
+          Resource: '*'
+        },
+        statement
+      );
+
+      this.plugin.lookupLogicalResourceIds();
+      statement.Resource.should.have.members([
+        'LogicalResourceId/DDBTable'
+      ]);
+      should.not.exist(statement.ResourceType);
+      should.not.exist(statement.ExcludeResource);
+      should.not.exist(statement.ExcludeResourcePrefix);
     });
 
     it("works even if 'Resource' property does not exist in the stack policy statement", function() {
@@ -221,10 +303,10 @@ describe('index', function() {
 
       this.plugin.lookupLogicalResourceIds();
       statement.Resource.should.have.members([
-        'LogicalResourceId/S3Bucket2'
+        'LogicalResourceId/AnotherS3Bucket'
       ]);
       should.not.exist(statement.ResourceType);
-      should.not.exist(statement.ExcludeResource);
+      should.not.exist(statement.ExcludeResourcePrefix);
     });
   });
 });

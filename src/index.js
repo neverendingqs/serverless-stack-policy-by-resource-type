@@ -9,6 +9,10 @@ class StackPolicyByResourceType {
     };
   }
 
+  matchesPrefix(prefixes, logicalResource){
+    return prefixes.filter(p => logicalResource.startsWith(p)).length > 0;
+  }
+
   lookupLogicalResourceIds() {
     const stackPolicy = this.serverless.service.provider.stackPolicy;
     if(!stackPolicy) {
@@ -25,10 +29,11 @@ class StackPolicyByResourceType {
     for(const statement of statementsToLookup) {
       const resourceTypes = new Set(statement.ResourceType);
       const notResources = new Set(statement.ExcludeResource);
+      const notResourcePrefixes = statement.ExcludeResourcePrefix || [];
       const resources = Object.entries(this.serverless.service.resources.Resources)
         .filter(([, { Type }]) => resourceTypes.has(Type))
         .map(([logicalResourceId]) => `LogicalResourceId/${logicalResourceId}`)
-        .filter(resource => !notResources.has(resource));
+        .filter(resource => !notResources.has(resource) && !this.matchesPrefix(notResourcePrefixes, resource));
 
       const newResources = [...new Set(
         (statement.Resource || []).concat(resources)
@@ -36,6 +41,7 @@ class StackPolicyByResourceType {
 
       statement.Resource = newResources.sort();
       delete statement.ExcludeResource;
+      delete statement.ExcludeResourcePrefix;
       delete statement.ResourceType;
     }
   }
