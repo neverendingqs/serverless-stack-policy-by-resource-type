@@ -2,6 +2,38 @@
 
 class StackPolicyByResourceType {
   constructor(serverless) {
+    console.log(serverless.configSchemaHandler.schema.properties.provider);
+    try {
+      // TODO: check if `configSchemaHandler` and `addPropertiesToSchema` exists
+      serverless.configSchemaHandler.addPropertiesToSchema(
+        serverless.configSchemaHandler.schema.properties.provider,
+        {
+          type: 'object',
+          properties: {
+            stackPolicy: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  ExcludeResource: {
+                    type: 'array',
+                    items: { type: 'string' }
+                  },
+                  ResourceType: {
+                    type: 'array',
+                    items: { type: 'string' }
+                  },
+                }
+              }
+            }
+          },
+        }
+      );
+    } catch (err) {
+      console.log('Property:', err.property);
+      throw err;
+    }
+
     this.provider = serverless.getProvider('aws');
     this.serverless = serverless;
     this.hooks = {
